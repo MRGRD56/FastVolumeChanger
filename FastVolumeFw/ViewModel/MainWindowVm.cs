@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
 using FastVolumeFw.Annotations;
@@ -35,13 +36,29 @@ namespace FastVolumeFw.ViewModel
                 }
 
                 if ((int) DefaultPlaybackDevice.Volume != _volume)
-                    DefaultPlaybackDevice.Volume = _volume;
+                    SetSystemVolumeAsync(_volume);
 
-                if (_volume > 0 && IsMute) 
+                if (Properties.Settings.Default.UnmuteWhileChangingVolume && _volume > 0 && IsMute) 
                     IsMute = false;
 
                 OnPropertyChanged();
             }
+        }
+
+        public async void SetSystemVolumeAsync(int vol)
+        {
+            await Task.Run(() =>
+            {
+                DefaultPlaybackDevice.Volume = vol;
+            });
+        }
+
+        public async void SetSystemMuteAsync(bool mute)
+        {
+            await Task.Run(() =>
+            {
+                DefaultPlaybackDevice.Mute(mute);
+            });
         }
 
         public bool IsMute
@@ -52,7 +69,7 @@ namespace FastVolumeFw.ViewModel
                 if (value == _isMute) return;
                 _isMute = value;
                 if (DefaultPlaybackDevice.IsMuted != _isMute)
-                    DefaultPlaybackDevice.Mute(_isMute);
+                    SetSystemMuteAsync(_isMute);
 
                 OnPropertyChanged();
             }

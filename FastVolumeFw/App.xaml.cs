@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using FastVolumeFw.Windows;
 
 namespace FastVolumeFw
 {
@@ -13,5 +14,6 @@ namespace FastVolumeFw
     /// </summary>
     public partial class App : Application
     {
+        public static MainWindow GetMainWindow() => (MainWindow) App.Current.MainWindow;
     }
 }

@@ -74,10 +74,20 @@ namespace FastVolumeFw.Windows
             while (true)
             {
                 //CursorCoordinatesString = $"X = {GetCursorPosition().X}; Y = {GetCursorPosition().Y}";
+                if (Properties.Settings.Default.IsAppDisabledInFullScreenMode &&
+                    Utilities.FullScreen.IsForegroundFullScreen())
+                {
+                    await Task.Delay(500);
+                    continue;
+                }
+
                 if (ShowToolWindow)
                 {
-                    ViewModel.Volume = (int) ViewModel.DefaultPlaybackDevice.Volume;
-                    ViewModel.IsMute = ViewModel.DefaultPlaybackDevice.IsMuted;
+                    await Task.Run(() =>
+                    {
+                        ViewModel.Volume = (int) ViewModel.DefaultPlaybackDevice.Volume;
+                        ViewModel.IsMute = ViewModel.DefaultPlaybackDevice.IsMuted;
+                    });
                 }
 
                 if (ViewModel.CursorPos == Screen.CursorPosition)
@@ -112,12 +122,33 @@ namespace FastVolumeFw.Windows
 
         private void VolumeThumb_OnDragCompleted(object sender, DragCompletedEventArgs e)
         {
-            SystemSounds.Exclamation.Play();
+            if (Properties.Settings.Default.PlaySoundAfterVolumeChange)
+                SystemSounds.Exclamation.Play();
         }
 
         private void MuteButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.IsMute = !ViewModel.IsMute;
+        }
+
+        private void OpenSettingsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is SettingsWindow)
+                    return;
+            }
+
+            new SettingsWindow().Show();
+        }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win != this)
+                    win.Close();
+            }
         }
     }
 }
