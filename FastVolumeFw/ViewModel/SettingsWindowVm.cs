@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using FastVolumeFw.Annotations;
 using static FastVolumeFw.Properties.Settings;
 
 namespace FastVolumeFw.ViewModel
 {
-    public class SettingsWindowVm
+    public class SettingsWindowVm : INotifyPropertyChanged
     {
         private bool _isAppDisabledInFullScreenMode;
         private bool _playSoundAfterVolumeChange;
@@ -26,6 +29,7 @@ namespace FastVolumeFw.ViewModel
                     Default.IsAppDisabledInFullScreenMode = value;
                     Default.Save();
                 }
+                OnPropertyChanged();
             }
         }
 
@@ -40,6 +44,7 @@ namespace FastVolumeFw.ViewModel
                     Default.PlaySoundAfterVolumeChange = value;
                     Default.Save();
                 }
+                OnPropertyChanged();
             }
         }
 
@@ -54,6 +59,7 @@ namespace FastVolumeFw.ViewModel
                     Default.UnmuteWhileChangingVolume = value;
                     Default.Save();
                 }
+                OnPropertyChanged();
             }
         }
 
@@ -68,6 +74,7 @@ namespace FastVolumeFw.ViewModel
                     Default.VolumeControlWithMouseWheel = value;
                     Default.Save();
                 }
+                OnPropertyChanged();
             }
         }
 
@@ -76,6 +83,8 @@ namespace FastVolumeFw.ViewModel
             get => _windowRightMargin;
             set
             {
+                if (value > 100) return;
+
                 _windowRightMargin = value;
                 if (Default.WindowRightMargin != value)
                 {
@@ -83,6 +92,7 @@ namespace FastVolumeFw.ViewModel
                     Default.Save();
                     App.GetMainWindow().SetStartupWindowLocation();
                 }
+                OnPropertyChanged();
             }
         }
 
@@ -93,6 +103,23 @@ namespace FastVolumeFw.ViewModel
             UnmuteWhileChangingVolume = Default.UnmuteWhileChangingVolume;
             VolumeControlWithMouseWheel = Default.VolumeControlWithMouseWheel;
             WindowRightMargin = Default.WindowRightMargin;
+        }
+
+        public void RestoreDefaults()
+        {
+            IsAppDisabledInFullScreenMode = false;
+            PlaySoundAfterVolumeChange = true;
+            UnmuteWhileChangingVolume = true;
+            VolumeControlWithMouseWheel = true;
+            WindowRightMargin = 30;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

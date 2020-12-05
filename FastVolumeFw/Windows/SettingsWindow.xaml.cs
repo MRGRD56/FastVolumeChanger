@@ -48,5 +48,16 @@ namespace FastVolumeFw.Windows
         {
             this.Close();
         }
+
+        private void RestoreDefaultsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mbox = new MaterialMbox("You are about to restore default application settings.", "Restore defaults");
+            mbox.ShowDialog();
+
+            if (mbox.Result == MessageBoxResult.OK)
+            {
+                ViewModel.RestoreDefaults();
+            }
+        }
     }
 }

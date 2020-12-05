@@ -71,11 +71,15 @@
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Window right margin" ToolTip="Offset of the main window from the right edge." Grid.ColumnSpan="2"/>
+                <Label Grid.Column="0" Content="Window right margin: " ToolTip="Offset of the main window from the right edge. Range: 0-100."/>
                 <TextBox Grid.Column="1" TextAlignment="Center" Text="{Binding WindowRightMargin, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </StackPanel>
-        <Button Content="Close the app" Width="120" HorizontalAlignment="Right" Click="CloseAppButton_Click" Height="25" VerticalAlignment="Bottom" Margin="0,0,5,5"
-                Style="{DynamicResource MaterialDesignFlatButton}" Grid.Row="1"/>
+        <StackPanel Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,5,5" Width="135" HorizontalAlignment="Right">
+            <Button Content="Restore defaults" Click="RestoreDefaultsButton_Click" Height="25" Margin="0 3 0 0"
+                    Style="{DynamicResource MaterialDesignFlatButton}"/>
+            <Button Content="Close the app" Click="CloseAppButton_Click" Height="25"
+                    Style="{DynamicResource MaterialDesignFlatButton}"/>
+        </StackPanel>
     </Grid>
 </Window>
