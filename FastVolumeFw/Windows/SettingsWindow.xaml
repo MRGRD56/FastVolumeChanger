@@ -66,13 +66,20 @@
                 <Label Content="Enable volume control with the mouse wheel" ToolTip="When you move the mouse wheel within the application window, the volume changes."/>
             </StackPanel>
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="210"/>
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Window right margin: " ToolTip="Offset of the main window from the right edge. Range: 0-100."/>
-                <TextBox Grid.Column="1" TextAlignment="Center" Text="{Binding WindowRightMargin, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="Mouse wheel volume change step: " ToolTip="Volume change step when adjusting with the mouse wheel. Range: 1-10."/>
+                <TextBox Grid.Row="0" Grid.Column="1" TextAlignment="Center" IsEnabled="{Binding VolumeControlWithMouseWheel}"
+                         Text="{Binding MouseWheelVolumeChangeStep, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Window right margin: " ToolTip="Offset of the main window from the right edge. Range: 0-100."/>
+                <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Text="{Binding WindowRightMargin, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </StackPanel>
         <StackPanel Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,5,5" Width="135" HorizontalAlignment="Right">

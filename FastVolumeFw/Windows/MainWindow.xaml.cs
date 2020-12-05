@@ -160,17 +160,19 @@ namespace FastVolumeFw.Windows
             if (!Properties.Settings.Default.VolumeControlWithMouseWheel)
                 return;
 
+            var step = Properties.Settings.Default.MouseWheelVolumeChangeStep;
+
             if (e.Delta > 0)
             {
-                if (ViewModel.Volume <= 98)
-                    ViewModel.Volume += 2;
+                if (ViewModel.Volume <= 100 - step)
+                    ViewModel.Volume += (int) step;
                 else
                     ViewModel.Volume = 100;
             }
             else if (e.Delta < 0)
             {
-                if (ViewModel.Volume >= 2)
-                    ViewModel.Volume -= 2;
+                if (ViewModel.Volume >= step)
+                    ViewModel.Volume -= (int) step;
                 else
                     ViewModel.Volume = 0;
             }

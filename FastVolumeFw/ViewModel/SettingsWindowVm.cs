@@ -17,6 +17,7 @@ namespace FastVolumeFw.ViewModel
         private bool _unmuteWhileChangingVolume;
         private bool _volumeControlWithMouseWheel;
         private uint _windowRightMargin;
+        private uint _mouseWheelVolumeChangeStep;
 
         public bool IsAppDisabledInFullScreenMode
         {
@@ -96,6 +97,23 @@ namespace FastVolumeFw.ViewModel
             }
         }
 
+        public uint MouseWheelVolumeChangeStep
+        {
+            get => _mouseWheelVolumeChangeStep;
+            set
+            {
+                if (value < 1 || value > 10) return;
+
+                _mouseWheelVolumeChangeStep = value;
+                if (Default.MouseWheelVolumeChangeStep != value)
+                {
+                    Default.MouseWheelVolumeChangeStep = value;
+                    Default.Save();
+                }
+                OnPropertyChanged();
+            }
+        }
+
         public SettingsWindowVm()
         {
             IsAppDisabledInFullScreenMode = Default.IsAppDisabledInFullScreenMode;
@@ -103,6 +121,7 @@ namespace FastVolumeFw.ViewModel
             UnmuteWhileChangingVolume = Default.UnmuteWhileChangingVolume;
             VolumeControlWithMouseWheel = Default.VolumeControlWithMouseWheel;
             WindowRightMargin = Default.WindowRightMargin;
+            MouseWheelVolumeChangeStep = Default.MouseWheelVolumeChangeStep;
         }
 
         public void RestoreDefaults()
@@ -112,6 +131,7 @@ namespace FastVolumeFw.ViewModel
             UnmuteWhileChangingVolume = true;
             VolumeControlWithMouseWheel = true;
             WindowRightMargin = 30;
+            MouseWheelVolumeChangeStep = 2;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

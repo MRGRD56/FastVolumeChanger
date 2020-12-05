@@ -82,5 +82,17 @@ namespace FastVolumeFw.Properties {
                 this["WindowRightMargin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public uint MouseWheelVolumeChangeStep {
+            get {
+                return ((uint)(this["MouseWheelVolumeChangeStep"]));
+            }
+            set {
+                this["MouseWheelVolumeChangeStep"] = value;
+            }
+        }
     }
 }
