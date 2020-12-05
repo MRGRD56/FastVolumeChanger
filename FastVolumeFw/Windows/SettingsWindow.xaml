@@ -7,16 +7,14 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="FastVolumeFw - Settings" Height="350" Width="500">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.Light.xaml" />-->
-                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />-->
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+        Title="FastVolumeFw - Settings" Height="350" Width="500"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -36,6 +34,7 @@
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding VolumeControlWithMouseWheel}"/>
             </StackPanel>
         </StackPanel>
-        <Button Content="Close the app" Width="90" HorizontalAlignment="Right" Click="CloseAppButton_Click" Height="20" VerticalAlignment="Bottom" Margin="5"/>
+        <Button Content="Close the app" Width="120" HorizontalAlignment="Right" Click="CloseAppButton_Click" Height="25" VerticalAlignment="Bottom" Margin="5"
+                Style="{DynamicResource MaterialDesignFlatButton}"/>
     </Grid>
 </Window>
