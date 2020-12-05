@@ -94,5 +94,29 @@ namespace FastVolumeFw.Properties {
                 this["MouseWheelVolumeChangeStep"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowPlaybackButtons {
+            get {
+                return ((bool)(this["ShowPlaybackButtons"]));
+            }
+            set {
+                this["ShowPlaybackButtons"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int MiddleMouseButtonAction {
+            get {
+                return ((int)(this["MiddleMouseButtonAction"]));
+            }
+            set {
+                this["MiddleMouseButtonAction"] = value;
+            }
+        }
     }
 }

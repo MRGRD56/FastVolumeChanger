@@ -20,5 +20,11 @@
     <Setting Name="MouseWheelVolumeChangeStep" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
+    <Setting Name="ShowPlaybackButtons" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MiddleMouseButtonAction" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

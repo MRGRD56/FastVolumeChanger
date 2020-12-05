@@ -4,17 +4,24 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
+using FastVolumeFw.Classes;
 
 namespace FastVolumeFw.Converters
 {
-    public class IsNotMuteConverter : IValueConverter
+    public class MiddleMbActionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //Принимает bool (isMute), возвращает Visibility иконки мута.
-            return (bool) value ? Visibility.Collapsed : Visibility.Visible;
+            var obj = (MiddleMouseButtonAction) value;
+            return obj switch
+            {
+                MiddleMouseButtonAction.None => "None",
+                MiddleMouseButtonAction.Mute => "Mute",
+                MiddleMouseButtonAction.OpenSettings => "Open app settings",
+                MiddleMouseButtonAction.PlayPause => "Play or pause",
+                _ => throw new Exception()
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -59,5 +59,10 @@ namespace FastVolumeFw.Windows
                 ViewModel.RestoreDefaults();
             }
         }
+
+        private void Mrgrd56Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/MRGRD56/FastVolumeFw");
+        }
     }
 }

@@ -1,13 +1,20 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Media;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 using System.Windows.Input;
 using FastVolumeFw.Annotations;
+using FastVolumeFw.Classes;
+using FastVolumeFw.Utilities;
 using FastVolumeFw.ViewModel;
 using GradeWinLib;
+using Application = System.Windows.Application;
+using Screen = GradeWinLib.Screen;
 
 namespace FastVolumeFw.Windows
 {
@@ -58,6 +65,7 @@ namespace FastVolumeFw.Windows
             //ResTb.Text = $"{ScreenSize.X};\n{ScreenSize.Y}";
 
             SetStartupWindowLocation();
+            SetPlaybackButtonsVisibility(Properties.Settings.Default.ShowPlaybackButtons);
 
             TraceCursorAndVolume();
         }
@@ -129,10 +137,20 @@ namespace FastVolumeFw.Windows
 
         private void MuteButton_Click(object sender, RoutedEventArgs e)
         {
+            ReMute();
+        }
+
+        private void ReMute()
+        {
             ViewModel.IsMute = !ViewModel.IsMute;
         }
 
         private void OpenSettingsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenSettigns();
+        }
+
+        private void OpenSettigns()
         {
             foreach (Window win in Application.Current.Windows)
             {
@@ -150,8 +168,15 @@ namespace FastVolumeFw.Windows
         {
             foreach (Window win in Application.Current.Windows)
             {
-                if (win != this)
-                    win.Close();
+                try
+                {
+                    if (win != this)
+                        win.Close();
+                }
+                catch (InvalidOperationException)
+                {
+                    //ignore
+                }
             }
         }
 
@@ -175,6 +200,57 @@ namespace FastVolumeFw.Windows
                     ViewModel.Volume -= (int) step;
                 else
                     ViewModel.Volume = 0;
+            }
+        }
+
+        public void SetPlaybackButtonsVisibility(bool visible)
+        {
+            if (visible)
+            {
+                PlaybackButtonsStackPanel.Visibility = Visibility.Visible;
+                MainGrid.RowDefinitions.Last().Height = new GridLength(65);
+            }
+            else
+            {
+                PlaybackButtonsStackPanel.Visibility = Visibility.Collapsed;
+                MainGrid.RowDefinitions.Last().Height = new GridLength(0);
+            }
+        }
+
+        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeyboardSend.KeyPress(Keys.MediaPlayPause);
+        }
+
+        private void PreviousTrackButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeyboardSend.KeyPress(Keys.MediaPreviousTrack);
+        }
+
+        private void NextTrackButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeyboardSend.KeyPress(Keys.MediaNextTrack);
+        }
+
+        private void MainBorder_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Middle &&
+                e.ButtonState == MouseButtonState.Pressed)
+            {
+                switch ((MiddleMouseButtonAction) Properties.Settings.Default.MiddleMouseButtonAction)
+                {
+                    case MiddleMouseButtonAction.None:
+                        return;
+                    case MiddleMouseButtonAction.Mute:
+                        ReMute();
+                        break;
+                    case MiddleMouseButtonAction.OpenSettings:
+                        OpenSettigns();
+                        break;
+                    case MiddleMouseButtonAction.PlayPause:
+                        KeyboardSend.KeyPress(Keys.MediaPlayPause);
+                        break;
+                }
             }
         }
     }

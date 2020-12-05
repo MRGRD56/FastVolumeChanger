@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using FastVolumeFw.Annotations;
+using FastVolumeFw.Classes;
 using static FastVolumeFw.Properties.Settings;
 
 namespace FastVolumeFw.ViewModel
@@ -18,6 +19,17 @@ namespace FastVolumeFw.ViewModel
         private bool _volumeControlWithMouseWheel;
         private uint _windowRightMargin;
         private uint _mouseWheelVolumeChangeStep;
+        private bool _showPlaybackButtons;
+        private MiddleMouseButtonAction _middleMouseButtonAction;
+
+        public List<MiddleMouseButtonAction> MiddleMouseButtonActions { get; set; } =
+            new List<MiddleMouseButtonAction>
+            {
+                MiddleMouseButtonAction.None,
+                MiddleMouseButtonAction.PlayPause,
+                MiddleMouseButtonAction.Mute,
+                MiddleMouseButtonAction.OpenSettings
+            };
 
         public bool IsAppDisabledInFullScreenMode
         {
@@ -114,6 +126,37 @@ namespace FastVolumeFw.ViewModel
             }
         }
 
+        public bool ShowPlaybackButtons
+        {
+            get => _showPlaybackButtons;
+            set
+            {
+                _showPlaybackButtons = value;
+                if (Default.ShowPlaybackButtons != value)
+                {
+                    Default.ShowPlaybackButtons = value;
+                    Default.Save();
+                }
+                App.GetMainWindow().SetPlaybackButtonsVisibility(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public MiddleMouseButtonAction MiddleMouseButtonAction
+        {
+            get => _middleMouseButtonAction;
+            set
+            {
+                _middleMouseButtonAction = value;
+                if ((MiddleMouseButtonAction) Default.MiddleMouseButtonAction != value)
+                {
+                    Default.MiddleMouseButtonAction = (int) value;
+                    Default.Save();
+                }
+                OnPropertyChanged();
+            }
+        }
+
         public SettingsWindowVm()
         {
             IsAppDisabledInFullScreenMode = Default.IsAppDisabledInFullScreenMode;
@@ -122,6 +165,8 @@ namespace FastVolumeFw.ViewModel
             VolumeControlWithMouseWheel = Default.VolumeControlWithMouseWheel;
             WindowRightMargin = Default.WindowRightMargin;
             MouseWheelVolumeChangeStep = Default.MouseWheelVolumeChangeStep;
+            ShowPlaybackButtons = Default.ShowPlaybackButtons;
+            MiddleMouseButtonAction = (MiddleMouseButtonAction) Default.MiddleMouseButtonAction;
         }
 
         public void RestoreDefaults()
@@ -132,6 +177,8 @@ namespace FastVolumeFw.ViewModel
             VolumeControlWithMouseWheel = true;
             WindowRightMargin = 30;
             MouseWheelVolumeChangeStep = 2;
+            ShowPlaybackButtons = true;
+            MiddleMouseButtonAction = MiddleMouseButtonAction.None;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

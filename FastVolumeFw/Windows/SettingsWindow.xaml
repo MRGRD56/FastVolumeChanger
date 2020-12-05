@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FastVolumeFw.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:converters="clr-namespace:FastVolumeFw.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="FastVolumeFw - Settings" Height="350" Width="500"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -17,6 +18,9 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         BorderBrush="Transparent" ResizeMode="NoResize"
         WindowStyle="None">
+    <Window.Resources>
+        <converters:MiddleMbActionConverter x:Key="MiddleMbActionConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -62,6 +66,10 @@
                 <Label Content="Disable in full screen mode" ToolTip="If the option is enabled and you are in full screen mode, the volume control will not be shown."/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
+                <CheckBox VerticalAlignment="Center" IsChecked="{Binding ShowPlaybackButtons}"/>
+                <Label Content="Show playback control buttons" ToolTip="Display playback control buttons on the volume control window."/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding VolumeControlWithMouseWheel}"/>
                 <Label Content="Enable volume control with the mouse wheel" ToolTip="When you move the mouse wheel within the application window, the volume changes."/>
             </StackPanel>
@@ -69,6 +77,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="210"/>
@@ -80,6 +89,15 @@
                          Text="{Binding MouseWheelVolumeChangeStep, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Grid.Row="1" Grid.Column="0" Content="Window right margin: " ToolTip="Offset of the main window from the right edge. Range: 0-100."/>
                 <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Text="{Binding WindowRightMargin, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="0" Content="Middle mouse button action: " ToolTip="The action that occurs when the middle mouse button is pressed."/>
+                <ComboBox Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" ItemsSource="{Binding MiddleMouseButtonActions}" Width="130" HorizontalAlignment="Left"
+                          SelectedItem="{Binding MiddleMouseButtonAction, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource MiddleMbActionConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </Grid>
         </StackPanel>
         <StackPanel Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,5,5" Width="135" HorizontalAlignment="Right">
@@ -88,5 +106,7 @@
             <Button Content="Close the app" Click="CloseAppButton_Click" Height="25"
                     Style="{DynamicResource MaterialDesignFlatButton}"/>
         </StackPanel>
+        <Label Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="v1.1 by MRGRD56" Margin="2 0 0 0"
+               Foreground="#616161" Cursor="Hand" MouseLeftButtonDown="Mrgrd56Label_MouseLeftButtonDown"/>
     </Grid>
 </Window>

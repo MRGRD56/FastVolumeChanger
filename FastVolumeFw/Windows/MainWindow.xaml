@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         WindowStyle="None" AllowsTransparency="True"
         Background="Transparent"
-        Height="300" Width="60" BorderThickness="0" Topmost="True" Closing="MainWindow_OnClosing"
+        Height="320" Width="60" BorderThickness="0" Topmost="True" Closing="MainWindow_OnClosing"
         ShowInTaskbar="False"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -17,7 +17,10 @@
         TextOptions.TextRenderingMode="Auto"        
         FontFamily="{DynamicResource MaterialDesignFont}">
 
-    <Border Background="{DynamicResource MaterialDesignPaper}" CornerRadius="5" BorderThickness="1" BorderBrush="#f09e9e9e" MouseWheel="MainBorder_MouseWheel">
+    <Border Background="{DynamicResource MaterialDesignPaper}" CornerRadius="5" 
+            BorderThickness="1" BorderBrush="#f09e9e9e" 
+            MouseWheel="MainBorder_MouseWheel"
+            MouseDown="MainBorder_MouseDown">
         <Border.Resources>
             <converters:IsMuteConverter x:Key="IsMuteConverter"/>
             <converters:IsNotMuteConverter x:Key="IsNotMuteConverter"/>
@@ -28,19 +31,24 @@
                 <MenuItem Header="Exit" Click="ExitMenuItem_Click"/>
             </ContextMenu>
         </Border.ContextMenu>
-        <Grid>
+        <Grid Name="MainGrid">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="Foreground" Value="White"/>
                 </Style>
             </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="65"/>
+            </Grid.RowDefinitions>
             <!--<TextBlock Width="200" Height="30" VerticalAlignment="Top" Margin="0 10 0 0" Text="{Binding CursorCoordinatesString}"/>
             <TextBlock Width="200" Height="30" VerticalAlignment="Top" Margin="0 50 0 0" Name="ResTb"/>
             <Border Name="ColorfulBorder" Width="25" Height="25" Background="Red"/>-->
-            <Slider Orientation="Vertical" HorizontalAlignment="Center" Margin="0 20 0 45" Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <Slider Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center" Margin="20,20,20,4" Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     Minimum="0" Maximum="100" Thumb.DragCompleted="VolumeThumb_OnDragCompleted"/>
-            <Button VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Margin="7 0 7 7" Name="VolumeLabel"
-                    Click="MuteButton_Click" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}">
+            <Button VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="7 0" Name="VolumeLabel"
+                    Click="MuteButton_Click" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" Grid.Row="1">
                 <Button.Content>
                     <Grid>
                         <materialDesign:PackIcon Kind="Mute" Foreground="#e0e0e0" VerticalAlignment="Center" 
@@ -50,6 +58,30 @@
                     </Grid>
                 </Button.Content>
             </Button>
+            <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center" Margin="0 5 0 0" 
+                        Name="PlaybackButtonsStackPanel" Visibility="Visible">
+                <Button Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Width="24" Height="24"
+                        Click="PlayPauseButton_Click">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="PlayPause" Foreground="#e0e0e0" Width="21" Height="21"/>
+                    </Button.Content>
+                </Button>
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Width="24" Height="24"
+                            Click="PreviousTrackButton_Click">
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="PreviousTitle" Foreground="#e0e0e0" Width="21" Height="21"/>
+                        </Button.Content>
+                    </Button>
+                    <Button Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Width="24" Height="24"
+                            Click="NextTrackButton_Click">
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="NextTitle" Foreground="#e0e0e0" Width="21" Height="21"/>
+                        </Button.Content>
+                    </Button>
+
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Border>
 
