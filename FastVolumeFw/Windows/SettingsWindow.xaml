@@ -14,27 +14,68 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        BorderBrush="Transparent" ResizeMode="NoResize"
+        WindowStyle="None">
     <Grid>
-        <StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="WindowTitleGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!--<ColumnDefinition Width="25"/>-->
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="FastVolumeFw - Settings" MouseLeftButtonDown="WindowTitleGrid_OnMouseLeftButtonDown" Foreground="#9e9e9e"/>
+            <!--<Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}" Height="25" Name="TitleCloseAppButton">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="ExitToApp"/>
+                </Button.Content>
+            </Button>-->
+            <Button Grid.Column="1" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Height="25" Name="TitleMinimizeWindowButton"
+                    Click="TitleMinimizeWindowButton_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="WindowMinimize" Foreground="#9e9e9e"/>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="2" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Height="25" Name="TitleCloseWindowButton"
+                    Click="TitleCloseWindowButton_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="WindowClose" Foreground="#9e9e9e"/>
+                </Button.Content>
+            </Button>
+        </Grid>
+        <StackPanel Grid.Row="1" Margin="3">
             <StackPanel Orientation="Horizontal">
-                <Label Content="Play sound when volume change completes" ToolTip="Play standard system sound when you release the volume control"/>
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding PlaySoundAfterVolumeChange}"/>
+                <Label Content="Play sound when volume change completes" ToolTip="Play standard system sound when you release the volume control"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Always unmute while changing volume" ToolTip="If the parameter is enabled and the sound is muted, it will be unmuted when the sound level is changed."/>
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding UnmuteWhileChangingVolume}"/>
+                <Label Content="Always unmute while changing volume" ToolTip="If the parameter is enabled and the sound is muted, it will be unmuted when the sound level is changed."/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Disable in full screen mode" ToolTip="If the option is enabled and you are in full screen mode, the volume control will not be shown."/>
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsAppDisabledInFullScreenMode}"/>
+                <Label Content="Disable in full screen mode" ToolTip="If the option is enabled and you are in full screen mode, the volume control will not be shown."/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Enable volume control with the mouse wheel" ToolTip="When you move the mouse wheel within the application window, the volume changes."/>
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding VolumeControlWithMouseWheel}"/>
+                <Label Content="Enable volume control with the mouse wheel" ToolTip="When you move the mouse wheel within the application window, the volume changes."/>
             </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Window right margin" ToolTip="Offset of the main window from the right edge." Grid.ColumnSpan="2"/>
+                <TextBox Grid.Column="1" TextAlignment="Center" Text="{Binding WindowRightMargin, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
         </StackPanel>
-        <Button Content="Close the app" Width="120" HorizontalAlignment="Right" Click="CloseAppButton_Click" Height="25" VerticalAlignment="Bottom" Margin="5"
-                Style="{DynamicResource MaterialDesignFlatButton}"/>
+        <Button Content="Close the app" Width="120" HorizontalAlignment="Right" Click="CloseAppButton_Click" Height="25" VerticalAlignment="Bottom" Margin="0,0,5,5"
+                Style="{DynamicResource MaterialDesignFlatButton}" Grid.Row="1"/>
     </Grid>
 </Window>

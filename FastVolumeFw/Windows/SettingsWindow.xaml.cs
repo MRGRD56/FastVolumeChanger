@@ -33,5 +33,20 @@ namespace FastVolumeFw.Windows
         {
             App.GetMainWindow().Close();
         }
+
+        private void WindowTitleGrid_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void TitleMinimizeWindowButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void TitleCloseWindowButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

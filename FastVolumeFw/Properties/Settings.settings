@@ -14,5 +14,8 @@
     <Setting Name="VolumeControlWithMouseWheel" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="WindowRightMargin" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -13,6 +13,7 @@ namespace FastVolumeFw.ViewModel
         private bool _playSoundAfterVolumeChange;
         private bool _unmuteWhileChangingVolume;
         private bool _volumeControlWithMouseWheel;
+        private uint _windowRightMargin;
 
         public bool IsAppDisabledInFullScreenMode
         {
@@ -70,12 +71,28 @@ namespace FastVolumeFw.ViewModel
             }
         }
 
+        public uint WindowRightMargin
+        {
+            get => _windowRightMargin;
+            set
+            {
+                _windowRightMargin = value;
+                if (Default.WindowRightMargin != value)
+                {
+                    Default.WindowRightMargin = value;
+                    Default.Save();
+                    App.GetMainWindow().SetStartupWindowLocation();
+                }
+            }
+        }
+
         public SettingsWindowVm()
         {
             IsAppDisabledInFullScreenMode = Default.IsAppDisabledInFullScreenMode;
             PlaySoundAfterVolumeChange = Default.PlaySoundAfterVolumeChange;
             UnmuteWhileChangingVolume = Default.UnmuteWhileChangingVolume;
             VolumeControlWithMouseWheel = Default.VolumeControlWithMouseWheel;
+            WindowRightMargin = Default.WindowRightMargin;
         }
     }
 }

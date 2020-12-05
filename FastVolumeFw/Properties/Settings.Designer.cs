@@ -70,5 +70,17 @@ namespace FastVolumeFw.Properties {
                 this["VolumeControlWithMouseWheel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public uint WindowRightMargin {
+            get {
+                return ((uint)(this["WindowRightMargin"]));
+            }
+            set {
+                this["WindowRightMargin"] = value;
+            }
+        }
     }
 }

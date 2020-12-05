@@ -23,7 +23,7 @@
             <converters:IsNotMuteConverter x:Key="IsNotMuteConverter"/>
         </Border.Resources>
         <Border.ContextMenu>
-            <ContextMenu>
+            <ContextMenu Name="MainContextMenu">
                 <MenuItem Header="Settings" Click="OpenSettingsMenuItem_Click"/>
                 <MenuItem Header="Exit" Click="ExitMenuItem_Click"/>
             </ContextMenu>
@@ -43,7 +43,7 @@
                     Click="MuteButton_Click" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}">
                 <Button.Content>
                     <Grid>
-                        <materialDesign:PackIcon Kind="Mute" Foreground="#eceff1" VerticalAlignment="Center" 
+                        <materialDesign:PackIcon Kind="Mute" Foreground="#e0e0e0" VerticalAlignment="Center" 
                             Visibility="{Binding IsMute, Converter={StaticResource IsMuteConverter}}"
                             Width="24" Height="24"/>
                         <TextBlock FontSize="18" Text="{Binding Volume}" Visibility="{Binding IsMute, Converter={StaticResource IsNotMuteConverter}}"/>

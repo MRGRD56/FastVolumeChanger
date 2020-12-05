@@ -62,9 +62,9 @@ namespace FastVolumeFw.Windows
             TraceCursorAndVolume();
         }
 
-        private void SetStartupWindowLocation()
+        public void SetStartupWindowLocation()
         {
-            var width = ScreenSize.X - this.Width - 30;
+            var width = ScreenSize.X - this.Width - Properties.Settings.Default.WindowRightMargin;
             var height = ((double)ScreenSize.Y) / 2 - this.Height / 2;
             this.Left = width;
             this.Top = height;
@@ -99,10 +99,10 @@ namespace FastVolumeFw.Windows
 
                 ViewModel.CursorPos = Screen.CursorPosition;
                 var yAdditionZone = ShowToolWindow ? 30 : 0;
-                var xZone = ShowToolWindow ? 30 + Width + 30 : 4;
-                ShowToolWindow = ViewModel.CursorPos.X > ScreenSize.X - xZone &&
+                var xZone = ShowToolWindow ? 30 + Width + Properties.Settings.Default.WindowRightMargin : 4;
+                ShowToolWindow = (ViewModel.CursorPos.X > ScreenSize.X - xZone &&
                                  (double) ScreenSize.Y / 2 - Height / 2 - yAdditionZone <= ViewModel.CursorPos.Y &&
-                                 (double) ScreenSize.Y / 2 + Height / 2 + yAdditionZone >= ViewModel.CursorPos.Y;
+                                 (double) ScreenSize.Y / 2 + Height / 2 + yAdditionZone >= ViewModel.CursorPos.Y) || MainContextMenu.IsOpen;
 
                 await Task.Delay(50);
             }
@@ -137,7 +137,10 @@ namespace FastVolumeFw.Windows
             foreach (Window win in Application.Current.Windows)
             {
                 if (win is SettingsWindow)
+                {
+                    win.Focus();
                     return;
+                }
             }
 
             new SettingsWindow().Show();
