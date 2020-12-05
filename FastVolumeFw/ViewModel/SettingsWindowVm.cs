@@ -12,6 +12,7 @@ namespace FastVolumeFw.ViewModel
         private bool _isAppDisabledInFullScreenMode;
         private bool _playSoundAfterVolumeChange;
         private bool _unmuteWhileChangingVolume;
+        private bool _volumeControlWithMouseWheel;
 
         public bool IsAppDisabledInFullScreenMode
         {
@@ -20,8 +21,10 @@ namespace FastVolumeFw.ViewModel
             {
                 _isAppDisabledInFullScreenMode = value;
                 if (Default.IsAppDisabledInFullScreenMode != value)
+                {
                     Default.IsAppDisabledInFullScreenMode = value;
-                Default.Save();
+                    Default.Save();
+                }
             }
         }
 
@@ -32,8 +35,10 @@ namespace FastVolumeFw.ViewModel
             {
                 _playSoundAfterVolumeChange = value;
                 if (Default.PlaySoundAfterVolumeChange != value)
+                {
                     Default.PlaySoundAfterVolumeChange = value;
-                Default.Save();
+                    Default.Save();
+                }
             }
         }
 
@@ -44,8 +49,24 @@ namespace FastVolumeFw.ViewModel
             {
                 _unmuteWhileChangingVolume = value;
                 if (Default.UnmuteWhileChangingVolume != value)
+                {
                     Default.UnmuteWhileChangingVolume = value;
-                Default.Save();
+                    Default.Save();
+                }
+            }
+        }
+
+        public bool VolumeControlWithMouseWheel
+        {
+            get => _volumeControlWithMouseWheel;
+            set
+            {
+                _volumeControlWithMouseWheel = value;
+                if (Default.VolumeControlWithMouseWheel != value)
+                {
+                    Default.VolumeControlWithMouseWheel = value;
+                    Default.Save();
+                }
             }
         }
 
@@ -54,6 +75,7 @@ namespace FastVolumeFw.ViewModel
             IsAppDisabledInFullScreenMode = Default.IsAppDisabledInFullScreenMode;
             PlaySoundAfterVolumeChange = Default.PlaySoundAfterVolumeChange;
             UnmuteWhileChangingVolume = Default.UnmuteWhileChangingVolume;
+            VolumeControlWithMouseWheel = Default.VolumeControlWithMouseWheel;
         }
     }
 }

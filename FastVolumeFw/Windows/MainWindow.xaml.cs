@@ -154,6 +154,9 @@ namespace FastVolumeFw.Windows
 
         private void MainBorder_MouseWheel(object sender, MouseWheelEventArgs e)
         {
+            if (!Properties.Settings.Default.VolumeControlWithMouseWheel)
+                return;
+
             if (e.Delta > 0)
             {
                 if (ViewModel.Volume <= 98)

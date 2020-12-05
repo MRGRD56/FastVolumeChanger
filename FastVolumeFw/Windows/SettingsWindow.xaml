@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FastVolumeFw.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="FastVolumeFw - Settings" Height="350" Width="500">
     <Window.Resources>
         <ResourceDictionary>
@@ -30,6 +30,10 @@
             <StackPanel Orientation="Horizontal">
                 <Label Content="Disable in full screen mode" ToolTip="If the option is enabled and you are in full screen mode, the volume control will not be shown."/>
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsAppDisabledInFullScreenMode}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Enable volume control with the mouse wheel" ToolTip="When you move the mouse wheel within the application window, the volume changes."/>
+                <CheckBox VerticalAlignment="Center" IsChecked="{Binding VolumeControlWithMouseWheel}"/>
             </StackPanel>
         </StackPanel>
         <Button Content="Close the app" Width="90" HorizontalAlignment="Right" Click="CloseAppButton_Click" Height="20" VerticalAlignment="Bottom" Margin="5"/>

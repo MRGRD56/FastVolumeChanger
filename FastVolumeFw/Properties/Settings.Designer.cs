@@ -58,5 +58,17 @@ namespace FastVolumeFw.Properties {
                 this["IsAppDisabledInFullScreenMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool VolumeControlWithMouseWheel {
+            get {
+                return ((bool)(this["VolumeControlWithMouseWheel"]));
+            }
+            set {
+                this["VolumeControlWithMouseWheel"] = value;
+            }
+        }
     }
 }
