@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         WindowStyle="None" AllowsTransparency="True"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="Transparent"
         Height="300" Width="60" BorderThickness="0" Topmost="True" Closing="MainWindow_OnClosing"
         ShowInTaskbar="False">
 
@@ -24,7 +24,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Border Background="#FA212121" CornerRadius="3" BorderThickness="1" BorderBrush="#f09e9e9e">
+    <Border Background="{DynamicResource MaterialDesignPaper}" CornerRadius="5" BorderThickness="1" BorderBrush="#f09e9e9e" MouseWheel="MainBorder_MouseWheel">
         <Border.Resources>
             <converters:IsMuteConverter x:Key="IsMuteConverter"/>
             <converters:IsNotMuteConverter x:Key="IsNotMuteConverter"/>

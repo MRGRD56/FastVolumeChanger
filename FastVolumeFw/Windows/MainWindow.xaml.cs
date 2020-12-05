@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using FastVolumeFw.Annotations;
 using FastVolumeFw.ViewModel;
 using GradeWinLib;
@@ -148,6 +149,24 @@ namespace FastVolumeFw.Windows
             {
                 if (win != this)
                     win.Close();
+            }
+        }
+
+        private void MainBorder_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                if (ViewModel.Volume <= 98)
+                    ViewModel.Volume += 2;
+                else
+                    ViewModel.Volume = 100;
+            }
+            else if (e.Delta < 0)
+            {
+                if (ViewModel.Volume >= 2)
+                    ViewModel.Volume -= 2;
+                else
+                    ViewModel.Volume = 0;
             }
         }
     }

@@ -20,15 +20,15 @@
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Play sound when volume change completes"/>
+                <Label Content="Play sound when volume change completes" ToolTip="Play standard system sound when you release the volume control"/>
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding PlaySoundAfterVolumeChange}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Always unmute while changing volume"/>
+                <Label Content="Always unmute while changing volume" ToolTip="If the parameter is enabled and the sound is muted, it will be unmuted when the sound level is changed."/>
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding UnmuteWhileChangingVolume}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Disable in full screen mode"/>
+                <Label Content="Disable in full screen mode" ToolTip="If the option is enabled and you are in full screen mode, the volume control will not be shown."/>
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsAppDisabledInFullScreenMode}"/>
             </StackPanel>
         </StackPanel>
