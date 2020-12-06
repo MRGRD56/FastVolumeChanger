@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FastVolumeFw.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:p="clr-namespace:FastVolumeFw.Properties"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="FastVolumeFw - Settings" Height="200" Width="300"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -41,7 +42,7 @@
             <TextBlock Text="Lorem Ipsum dolor sit amet?" TextAlignment="Center" FontSize="14" TextWrapping="Wrap" Margin="15"
                    Name="MessageTextBlock" VerticalAlignment="Center"/>
         </Grid>
-        <Grid Grid.Row="2" Name="OkCancelButtonsGrid">
+        <Grid Grid.Row="2" Name="OkCancelButtonsGrid" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2.2*"/>
@@ -49,8 +50,10 @@
                 <ColumnDefinition Width="2.2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Margin="3 0" Style="{DynamicResource MaterialDesignFlatButton}" Content="OK" Click="Button_Click"/>
-            <Button Grid.Column="3" Margin="3 0" Style="{DynamicResource MaterialDesignFlatButton}" Content="Cancel" Click="Button_Click"/>
+            <Button Grid.Column="1" Margin="3 0" Style="{DynamicResource MaterialDesignFlatButton}" Content="{x:Static p:Strings.OK}" Click="Button_Click" Tag="OK"/>
+            <Button Grid.Column="3" Margin="3 0" Style="{DynamicResource MaterialDesignFlatButton}" Content="{x:Static p:Strings.Cancel}" Click="Button_Click" Tag="Cancel"/>
         </Grid>
+        <Button Visibility="Collapsed" Grid.Row="2" Name="OkSingleButton" Style="{DynamicResource MaterialDesignFlatButton}" Content="{x:Static p:Strings.OK}" Width="120"
+                Click="Button_Click" Tag="OK"/>
     </Grid>
 </Window>

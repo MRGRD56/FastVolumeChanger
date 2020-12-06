@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Media;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -59,11 +61,11 @@ namespace FastVolumeFw.Windows
 
         public MainWindow()
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Properties.Settings.Default.AppLanguage);
+
             InitializeComponent();
             ViewModel = new MainWindowVm();
             DataContext = ViewModel;
-
-            //ResTb.Text = $"{ScreenSize.X};\n{ScreenSize.Y}";
 
             SetStartupWindowLocation();
             SetPlaybackButtonsVisibility(Properties.Settings.Default.ShowPlaybackButtons);

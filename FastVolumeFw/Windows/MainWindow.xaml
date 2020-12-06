@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FastVolumeFw"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:converters="clr-namespace:FastVolumeFw.Converters"
+        xmlns:p="clr-namespace:FastVolumeFw.Properties"
         mc:Ignorable="d"
         WindowStyle="None" AllowsTransparency="True"
         Background="Transparent"
@@ -27,8 +28,8 @@
         </Border.Resources>
         <Border.ContextMenu>
             <ContextMenu Name="MainContextMenu">
-                <MenuItem Header="Settings" Click="OpenSettingsMenuItem_Click"/>
-                <MenuItem Header="Exit" Click="ExitMenuItem_Click"/>
+                <MenuItem Header="{x:Static p:Strings.Settings}" Click="OpenSettingsMenuItem_Click"/>
+                <MenuItem Header="{x:Static p:Strings.Exit}" Click="ExitMenuItem_Click"/>
             </ContextMenu>
         </Border.ContextMenu>
         <Grid Name="MainGrid">

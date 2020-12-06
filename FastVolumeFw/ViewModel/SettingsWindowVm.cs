@@ -5,8 +5,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using FastVolumeFw.Annotations;
 using FastVolumeFw.Classes;
+using FastVolumeFw.Windows;
 using static FastVolumeFw.Properties.Settings;
 
 namespace FastVolumeFw.ViewModel
@@ -21,6 +23,7 @@ namespace FastVolumeFw.ViewModel
         private uint _mouseWheelVolumeChangeStep;
         private bool _showPlaybackButtons;
         private MiddleMouseButtonAction _middleMouseButtonAction;
+        private AppLanguage _appLanguage;
 
         public List<MiddleMouseButtonAction> MiddleMouseButtonActions { get; set; } =
             new List<MiddleMouseButtonAction>
@@ -29,6 +32,13 @@ namespace FastVolumeFw.ViewModel
                 MiddleMouseButtonAction.PlayPause,
                 MiddleMouseButtonAction.Mute,
                 MiddleMouseButtonAction.OpenSettings
+            };
+
+        public List<AppLanguage> AppLanguages { get; set; } =
+            new List<AppLanguage>
+            {
+                new AppLanguage("en-US", "English"),
+                new AppLanguage("ru-RU", "Русский")
             };
 
         public bool IsAppDisabledInFullScreenMode
@@ -157,6 +167,23 @@ namespace FastVolumeFw.ViewModel
             }
         }
 
+        public AppLanguage AppLanguage
+        {
+            get => _appLanguage;
+            set
+            {
+                _appLanguage = value;
+                OnPropertyChanged();
+                if (Default.AppLanguage != value.Code)
+                {
+                    Default.AppLanguage = value.Code;
+                    Default.Save();
+                    var mbox = new MaterialMbox(Properties.Strings.LanguageChangeMessage, Properties.Strings.LanguageChangeTitle, MessageBoxButton.OK);
+                    mbox.ShowDialog();
+                }
+            }
+        }
+
         public SettingsWindowVm()
         {
             IsAppDisabledInFullScreenMode = Default.IsAppDisabledInFullScreenMode;
@@ -167,6 +194,8 @@ namespace FastVolumeFw.ViewModel
             MouseWheelVolumeChangeStep = Default.MouseWheelVolumeChangeStep;
             ShowPlaybackButtons = Default.ShowPlaybackButtons;
             MiddleMouseButtonAction = (MiddleMouseButtonAction) Default.MiddleMouseButtonAction;
+            AppLanguage = AppLanguages.FirstOrDefault(x => Default.AppLanguage == x.Code) ??
+                          new AppLanguage("en-US", "English");
         }
 
         public void RestoreDefaults()
@@ -179,6 +208,7 @@ namespace FastVolumeFw.ViewModel
             MouseWheelVolumeChangeStep = 2;
             ShowPlaybackButtons = true;
             MiddleMouseButtonAction = MiddleMouseButtonAction.None;
+            //AppLanguage - skip
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

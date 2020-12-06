@@ -51,7 +51,7 @@ namespace FastVolumeFw.Windows
 
         private void RestoreDefaultsButton_Click(object sender, RoutedEventArgs e)
         {
-            var mbox = new MaterialMbox("You are about to restore default application settings.", "Restore defaults");
+            var mbox = new MaterialMbox(Properties.Strings.RestoreDefaultsMessage, Properties.Strings.RestoreDefaultsTitle);
             mbox.ShowDialog();
 
             if (mbox.Result == MessageBoxResult.OK)
@@ -62,7 +62,7 @@ namespace FastVolumeFw.Windows
 
         private void Mrgrd56Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/MRGRD56/FastVolumeFw");
+            System.Diagnostics.Process.Start("https://github.com/MRGRD56/FastVolumeChanger");
         }
 
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) => 

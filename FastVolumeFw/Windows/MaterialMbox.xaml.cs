@@ -21,12 +21,26 @@ namespace FastVolumeFw.Windows
     {
         public MessageBoxResult Result { get; private set; } = MessageBoxResult.None;
 
-        public MaterialMbox(string message, string title = "")
+        public MaterialMbox(string message, string title = "", MessageBoxButton buttons = MessageBoxButton.OKCancel)
         {
             InitializeComponent();
 
             MessageTextBlock.Text = message;
             TitleLabel.Content = title;
+
+            switch (buttons)
+            {
+                case MessageBoxButton.OKCancel:
+                    OkCancelButtonsGrid.Visibility = Visibility.Visible;
+                    OkSingleButton.Visibility = Visibility.Collapsed;
+                    break;
+                case MessageBoxButton.OK:
+                    OkCancelButtonsGrid.Visibility = Visibility.Collapsed;
+                    OkSingleButton.Visibility = Visibility.Visible;
+                    break;
+                default:
+                    throw new NotImplementedException("MaterialMbox supports only OK and Cancel buttons.");
+            }
         }
 
         private void WindowTitleGrid_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -41,7 +55,7 @@ namespace FastVolumeFw.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var str = ((Button) sender).Content.ToString();
+            var str = ((Button) sender).Tag.ToString();
             Result = str switch
             {
                 "OK" => MessageBoxResult.OK,

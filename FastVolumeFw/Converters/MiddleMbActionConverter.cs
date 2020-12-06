@@ -16,10 +16,10 @@ namespace FastVolumeFw.Converters
             var obj = (MiddleMouseButtonAction) value;
             return obj switch
             {
-                MiddleMouseButtonAction.None => "None",
-                MiddleMouseButtonAction.Mute => "Mute",
-                MiddleMouseButtonAction.OpenSettings => "Open app settings",
-                MiddleMouseButtonAction.PlayPause => "Play or pause",
+                MiddleMouseButtonAction.None => Properties.Strings.MmbaNone,
+                MiddleMouseButtonAction.Mute => Properties.Strings.MmbaMute,
+                MiddleMouseButtonAction.OpenSettings => Properties.Strings.MmbaOpenSettings,
+                MiddleMouseButtonAction.PlayPause => Properties.Strings.MmbaPlayPause,
                 _ => throw new Exception()
             };
         }
