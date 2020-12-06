@@ -64,5 +64,8 @@ namespace FastVolumeFw.Windows
         {
             System.Diagnostics.Process.Start("https://github.com/MRGRD56/FastVolumeFw");
         }
+
+        private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) => 
+            e.Handled = !(char.IsDigit(e.Text, 0));
     }
 }

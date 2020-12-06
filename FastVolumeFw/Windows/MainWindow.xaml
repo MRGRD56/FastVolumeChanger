@@ -10,7 +10,7 @@
         WindowStyle="None" AllowsTransparency="True"
         Background="Transparent"
         Height="320" Width="60" BorderThickness="0" Topmost="True" Closing="MainWindow_OnClosing"
-        ShowInTaskbar="False"
+        ShowInTaskbar="False" Title="FastVolumeChanger"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 

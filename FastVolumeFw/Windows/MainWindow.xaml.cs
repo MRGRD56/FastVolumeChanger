@@ -21,7 +21,7 @@ namespace FastVolumeFw.Windows
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         public MainWindowVm ViewModel { get; }
 
@@ -46,6 +46,7 @@ namespace FastVolumeFw.Windows
                 if (value)
                 {
                     //ColorfulBorder.Background = new SolidColorBrush(Color.FromRgb(0x00, 0xff, 0x00));
+                    SetStartupWindowLocation();
                     Visibility = Visibility.Visible;
                 }
                 else
@@ -74,8 +75,12 @@ namespace FastVolumeFw.Windows
         {
             var width = ScreenSize.X - this.Width - Properties.Settings.Default.WindowRightMargin;
             var height = ((double)ScreenSize.Y) / 2 - this.Height / 2;
-            this.Left = width;
-            this.Top = height;
+
+            if ((int) Left != (int) width || (int) Top != (int) height)
+            {
+                this.Left = width;
+                this.Top = height;
+            }
         }
 
         private async void TraceCursorAndVolume()
@@ -116,14 +121,6 @@ namespace FastVolumeFw.Windows
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -156,6 +153,7 @@ namespace FastVolumeFw.Windows
             {
                 if (win is SettingsWindow)
                 {
+                    win.WindowState = WindowState.Normal;
                     win.Focus();
                     return;
                 }

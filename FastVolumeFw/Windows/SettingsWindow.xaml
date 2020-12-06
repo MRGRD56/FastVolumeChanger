@@ -8,7 +8,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:converters="clr-namespace:FastVolumeFw.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="FastVolumeFw - Settings" Height="350" Width="500"
+        Title="FastVolumeChanger - Settings" Height="350" Width="500"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="25"/>
                 <ColumnDefinition Width="25"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="FastVolumeFw - Settings" MouseLeftButtonDown="WindowTitleGrid_OnMouseLeftButtonDown" Foreground="#9e9e9e"/>
+            <Label Grid.Column="0" Content="FastVolumeChanger - Settings" MouseLeftButtonDown="WindowTitleGrid_OnMouseLeftButtonDown" Foreground="#9e9e9e"/>
             <!--<Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}" Height="25" Name="TitleCloseAppButton">
                 <Button.Content>
                     <materialDesign:PackIcon Kind="ExitToApp"/>
@@ -86,9 +86,11 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Mouse wheel volume change step: " ToolTip="Volume change step when adjusting with the mouse wheel. Range: 1-10."/>
                 <TextBox Grid.Row="0" Grid.Column="1" TextAlignment="Center" IsEnabled="{Binding VolumeControlWithMouseWheel}"
-                         Text="{Binding MouseWheelVolumeChangeStep, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding MouseWheelVolumeChangeStep, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="NumericTextBox_PreviewTextInput"/>
                 <Label Grid.Row="1" Grid.Column="0" Content="Window right margin: " ToolTip="Offset of the main window from the right edge. Range: 0-100."/>
-                <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Text="{Binding WindowRightMargin, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Text="{Binding WindowRightMargin, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="NumericTextBox_PreviewTextInput"/>
                 <Label VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="0" Content="Middle mouse button action: " ToolTip="The action that occurs when the middle mouse button is pressed."/>
                 <ComboBox Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" ItemsSource="{Binding MiddleMouseButtonActions}" Width="130" HorizontalAlignment="Left"
                           SelectedItem="{Binding MiddleMouseButtonAction, UpdateSourceTrigger=PropertyChanged}">
@@ -106,7 +108,7 @@
             <Button Content="Close the app" Click="CloseAppButton_Click" Height="25"
                     Style="{DynamicResource MaterialDesignFlatButton}"/>
         </StackPanel>
-        <Label Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="v1.1 by MRGRD56" Margin="2 0 0 0"
+        <Label Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="v1.1.1 by MRGRD56" Margin="2 0 0 0"
                Foreground="#616161" Cursor="Hand" MouseLeftButtonDown="Mrgrd56Label_MouseLeftButtonDown"/>
     </Grid>
 </Window>
