@@ -201,6 +201,9 @@
   <data name="UnmuteWhileChangingVolumeLabel" xml:space="preserve">
     <value>Всегда включать звук при изменении громкости</value>
   </data>
+  <data name="Unstable" xml:space="preserve">
+    <value>Нестабильно</value>
+  </data>
   <data name="VolumeControlWithMouseWheelDescription" xml:space="preserve">
     <value>Когда вы прокручиваете колесо мыши в пределах окна контроля громкости, звук изменяется.</value>
   </data>

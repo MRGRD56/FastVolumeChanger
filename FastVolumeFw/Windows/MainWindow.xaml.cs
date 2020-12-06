@@ -93,6 +93,8 @@ namespace FastVolumeFw.Windows
                 if (Properties.Settings.Default.IsAppDisabledInFullScreenMode &&
                     Utilities.FullScreen.IsForegroundFullScreen())
                 {
+                    if (ShowToolWindow) ShowToolWindow = false;
+
                     await Task.Delay(500);
                     continue;
                 }

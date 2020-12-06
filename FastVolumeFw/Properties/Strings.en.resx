@@ -201,6 +201,9 @@
   <data name="UnmuteWhileChangingVolumeLabel" xml:space="preserve">
     <value>Always unmute while changing volume</value>
   </data>
+  <data name="Unstable" xml:space="preserve">
+    <value>Unstable</value>
+  </data>
   <data name="VolumeControlWithMouseWheelDescription" xml:space="preserve">
     <value>When you move the mouse wheel within the application window, the volume changes.</value>
   </data>

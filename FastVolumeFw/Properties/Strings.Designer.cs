@@ -313,6 +313,15 @@ namespace FastVolumeFw.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Unstable.
+        /// </summary>
+        public static string Unstable {
+            get {
+                return ResourceManager.GetString("Unstable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на When you move the mouse wheel within the application window, the volume changes..
         /// </summary>
         public static string VolumeControlWithMouseWheelDescription {

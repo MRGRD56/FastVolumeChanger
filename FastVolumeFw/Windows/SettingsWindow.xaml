@@ -71,6 +71,7 @@
             <StackPanel Orientation="Horizontal">
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsAppDisabledInFullScreenMode}"/>
                 <Label Content="{x:Static p:Strings.IsAppDisabledInFullScreenModeLabel}" ToolTip="{x:Static p:Strings.IsAppDisabledInFullScreenModeDescription}"/>
+                <materialDesign:PackIcon Kind="Warning" VerticalAlignment="Center" ToolTip="{x:Static p:Strings.Unstable}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <CheckBox VerticalAlignment="Center" IsChecked="{Binding ShowPlaybackButtons}"/>
