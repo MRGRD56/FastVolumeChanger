@@ -136,7 +136,7 @@
     <value>Язык:</value>
   </data>
   <data name="LanguageChangeMessage" xml:space="preserve">
-    <value>Для смены языка перезапустите приложение.</value>
+    <value>Вы сменили язык. Приложение будет перезапущено.</value>
   </data>
   <data name="LanguageChangeTitle" xml:space="preserve">
     <value>Изменение языка</value>
@@ -149,6 +149,9 @@
   </data>
   <data name="MiddleMouseButtonActionLabel" xml:space="preserve">
     <value>Действие средней кнопки мыши:</value>
+  </data>
+  <data name="MixerListLabel" xml:space="preserve">
+    <value>Список программ в микшере громкости</value>
   </data>
   <data name="MmbaMute" xml:space="preserve">
     <value>Выкл. звук</value>

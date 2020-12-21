@@ -67,5 +67,11 @@ namespace FastVolumeFw.Windows
 
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) => 
             e.Handled = !(char.IsDigit(e.Text, 0));
+
+        private void SettingsWindow_OnStateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+                WindowState = WindowState.Normal;
+        }
     }
 }

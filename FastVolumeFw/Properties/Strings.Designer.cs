@@ -115,7 +115,7 @@ namespace FastVolumeFw.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на To change the language, restart the application..
+        ///   Ищет локализованную строку, похожую на You have changed the language. The application will be restarted..
         /// </summary>
         public static string LanguageChangeMessage {
             get {
@@ -156,6 +156,15 @@ namespace FastVolumeFw.Properties {
         public static string MiddleMouseButtonActionLabel {
             get {
                 return ResourceManager.GetString("MiddleMouseButtonActionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на List of programs in the volume mixer.
+        /// </summary>
+        public static string MixerListLabel {
+            get {
+                return ResourceManager.GetString("MixerListLabel", resourceCulture);
             }
         }
         
