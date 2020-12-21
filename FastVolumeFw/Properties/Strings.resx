@@ -136,7 +136,7 @@
     <value>Language:</value>
   </data>
   <data name="LanguageChangeMessage" xml:space="preserve">
-    <value>To change the language, restart the application.</value>
+    <value>You have changed the language. The application will be restarted.</value>
   </data>
   <data name="LanguageChangeTitle" xml:space="preserve">
     <value>Language change</value>
@@ -149,6 +149,9 @@
   </data>
   <data name="MiddleMouseButtonActionLabel" xml:space="preserve">
     <value>Middle mouse button action:</value>
+  </data>
+  <data name="MixerListLabel" xml:space="preserve">
+    <value>List of programs in the volume mixer</value>
   </data>
   <data name="MmbaMute" xml:space="preserve">
     <value>Mute</value>

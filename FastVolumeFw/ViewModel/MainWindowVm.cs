@@ -1,10 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
 using FastVolumeFw.Annotations;
+using FastVolumeFw.Classes;
 using GradeWinLib;
+using static FastVolumeFw.Properties.Settings;
 
 namespace FastVolumeFw.ViewModel
 {
@@ -44,6 +47,9 @@ namespace FastVolumeFw.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public ObservableCollection<AppVolume> MixerApps { get; set; } = 
+            AppVolume.FromNames(Default.MixerApps);
 
         public async void SetSystemVolumeAsync(int vol)
         {

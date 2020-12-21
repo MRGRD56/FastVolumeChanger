@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace FastVolumeFw.Windows
                 if (value)
                 {
                     //ColorfulBorder.Background = new SolidColorBrush(Color.FromRgb(0x00, 0xff, 0x00));
-                    SetStartupWindowLocation();
+                    SetMainWindowParameters();
                     Visibility = Visibility.Visible;
                 }
                 else
@@ -67,13 +68,13 @@ namespace FastVolumeFw.Windows
             ViewModel = new MainWindowVm();
             DataContext = ViewModel;
 
-            SetStartupWindowLocation();
+            SetMainWindowParameters();
             SetPlaybackButtonsVisibility(Properties.Settings.Default.ShowPlaybackButtons);
 
             TraceCursorAndVolume();
         }
 
-        public void SetStartupWindowLocation()
+        public void SetMainWindowParameters()
         {
             var width = ScreenSize.X - this.Width - Properties.Settings.Default.WindowRightMargin;
             var height = ((double)ScreenSize.Y) / 2 - this.Height / 2;
@@ -83,6 +84,9 @@ namespace FastVolumeFw.Windows
                 this.Left = width;
                 this.Top = height;
             }
+
+            // width = 60 (if count of MixerApps is 0)
+            Width = 60 + Properties.Settings.Default.MixerApps.Count * 70;
         }
 
         private async void TraceCursorAndVolume()
@@ -210,12 +214,12 @@ namespace FastVolumeFw.Windows
             if (visible)
             {
                 PlaybackButtonsStackPanel.Visibility = Visibility.Visible;
-                MainGrid.RowDefinitions.Last().Height = new GridLength(65);
+                MainControllerGrid.RowDefinitions.Last().Height = new GridLength(65);
             }
             else
             {
                 PlaybackButtonsStackPanel.Visibility = Visibility.Collapsed;
-                MainGrid.RowDefinitions.Last().Height = new GridLength(0);
+                MainControllerGrid.RowDefinitions.Last().Height = new GridLength(0);
             }
         }
 

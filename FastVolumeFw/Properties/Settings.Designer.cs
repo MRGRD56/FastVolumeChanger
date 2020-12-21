@@ -130,5 +130,16 @@ namespace FastVolumeFw.Properties {
                 this["AppLanguage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Generic.List<System.String> MixerApps {
+            get {
+                return ((global::System.Collections.Generic.List<System.String>)(this["MixerApps"]));
+            }
+            set {
+                this["MixerApps"] = value;
+            }
+        }
     }
 }

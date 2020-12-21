@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -24,6 +25,7 @@ namespace FastVolumeFw.ViewModel
         private bool _showPlaybackButtons;
         private MiddleMouseButtonAction _middleMouseButtonAction;
         private AppLanguage _appLanguage;
+        private List<string> _mixerApps;
 
         public List<MiddleMouseButtonAction> MiddleMouseButtonActions { get; set; } =
             new List<MiddleMouseButtonAction>
@@ -113,7 +115,7 @@ namespace FastVolumeFw.ViewModel
                 {
                     Default.WindowRightMargin = value;
                     Default.Save();
-                    App.GetMainWindow().SetStartupWindowLocation();
+                    App.GetMainWindow().SetMainWindowParameters();
                 }
                 OnPropertyChanged();
             }
@@ -178,9 +180,25 @@ namespace FastVolumeFw.ViewModel
                 {
                     Default.AppLanguage = value.Code;
                     Default.Save();
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(value.Code);
                     var mbox = new MaterialMbox(Properties.Strings.LanguageChangeMessage, Properties.Strings.LanguageChangeTitle, MessageBoxButton.OK);
                     mbox.ShowDialog();
+                    System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                    Application.Current.Shutdown();
                 }
+            }
+        }
+
+        public List<string> MixerApps
+        {
+            get => _mixerApps;
+            set
+            {
+                if (Equals(value, _mixerApps)) return;
+                _mixerApps = value;
+                Default.MixerApps = value;
+                Default.Save();
+                OnPropertyChanged();
             }
         }
 
@@ -196,6 +214,10 @@ namespace FastVolumeFw.ViewModel
             MiddleMouseButtonAction = (MiddleMouseButtonAction) Default.MiddleMouseButtonAction;
             AppLanguage = AppLanguages.FirstOrDefault(x => Default.AppLanguage == x.Code) ??
                           new AppLanguage("en-US", "English");
+            MixerApps = Default.MixerApps;
+
+            //TODO remove
+            MixerApps = new List<string> { "chrome.exe", "msedge.exe" };
         }
 
         public void RestoreDefaults()
@@ -209,6 +231,7 @@ namespace FastVolumeFw.ViewModel
             ShowPlaybackButtons = true;
             MiddleMouseButtonAction = MiddleMouseButtonAction.None;
             //AppLanguage - skip
+            MixerApps = new List<string>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -218,5 +241,6 @@ namespace FastVolumeFw.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

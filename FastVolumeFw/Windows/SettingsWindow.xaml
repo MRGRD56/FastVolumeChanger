@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FastVolumeFw.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mdExt="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:converters="clr-namespace:FastVolumeFw.Converters"
         xmlns:p="clr-namespace:FastVolumeFw.Properties"
@@ -17,106 +18,152 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        BorderBrush="Transparent" ResizeMode="NoResize"
-        WindowStyle="None">
+        ResizeMode="CanResize" BorderBrush="{DynamicResource MaterialDesignPaper}"
+        WindowStyle="None" StateChanged="SettingsWindow_OnStateChanged"
+        MinWidth="500" MinHeight="150">
     <Window.Resources>
         <converters:MiddleMbActionConverter x:Key="MiddleMbActionConverter"/>
     </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0" ResizeBorderThickness="5"/>
+    </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid.Resources>
+            <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
+                <Setter Property="Margin" Value="2 3 3 3"/>
+            </Style>
+        </Grid.Resources>
         <Grid Grid.Row="0" Name="WindowTitleGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <!--<ColumnDefinition Width="25"/>-->
                 <ColumnDefinition Width="25"/>
                 <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="FastVolumeChanger" MouseLeftButtonDown="WindowTitleGrid_OnMouseLeftButtonDown" Foreground="#9e9e9e"/>
-            <!--<Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}" Height="25" Name="TitleCloseAppButton">
-                <Button.Content>
-                    <materialDesign:PackIcon Kind="ExitToApp"/>
-                </Button.Content>
-            </Button>-->
-            <Button Grid.Column="1" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Height="25" Name="TitleMinimizeWindowButton"
-                    Click="TitleMinimizeWindowButton_OnClick">
-                <Button.Content>
-                    <materialDesign:PackIcon Kind="WindowMinimize" Foreground="#9e9e9e"/>
-                </Button.Content>
+            <Button Grid.Column="1" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Height="25" Name="TitleRestoreSettingsButton"
+                    ToolTip="{x:Static p:Strings.RestoreDefaults}" Click="RestoreDefaultsButton_Click"
+                    materialDesign:ButtonAssist.CornerRadius="0">
+                <materialDesign:PackIcon Kind="BackupRestore" Foreground="#9e9e9e"/>
             </Button>
-            <Button Grid.Column="2" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Height="25" Name="TitleCloseWindowButton"
-                    Click="TitleCloseWindowButton_OnClick">
-                <Button.Content>
-                    <materialDesign:PackIcon Kind="WindowClose" Foreground="#9e9e9e"/>
-                </Button.Content>
+            <Button Grid.Column="2" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Height="25" Name="TitleCloseAppButton"
+                    ToolTip="{x:Static p:Strings.CloseTheApp}" Click="CloseAppButton_Click"
+                    materialDesign:ButtonAssist.CornerRadius="0">
+                <materialDesign:PackIcon Kind="ExitToApp" Foreground="#9e9e9e"/>
+            </Button>
+            <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Height="25" Name="TitleMinimizeWindowButton"
+                    Click="TitleMinimizeWindowButton_OnClick" materialDesign:ButtonAssist.CornerRadius="0">
+                <materialDesign:PackIcon Kind="WindowMinimize" Foreground="#9e9e9e"/>
+            </Button>
+            <Button Grid.Column="4" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" Height="25" Name="TitleCloseWindowButton"
+                    Click="TitleCloseWindowButton_OnClick" materialDesign:ButtonAssist.CornerRadius="0">
+                <materialDesign:PackIcon Kind="WindowClose" Foreground="#9e9e9e"/>
             </Button>
         </Grid>
-        <StackPanel Grid.Row="1" Margin="3">
-            <StackPanel Orientation="Horizontal">
-                <Label VerticalContentAlignment="Center" Grid.Column="0" 
-                           Content="{x:Static p:Strings.Language}" ToolTip="{x:Static p:Strings.LanguageLabelDescription}"/>
-                <ComboBox Margin="5 0 0 0" ItemsSource="{Binding AppLanguages}" Width="130" HorizontalAlignment="Left"
-                          SelectedItem="{Binding AppLanguage, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding PlaySoundAfterVolumeChange}"/>
-                <Label Content="{x:Static p:Strings.PlaySoundAfterVolumeChangeLabel}" ToolTip="{x:Static p:Strings.PlaySoundAfterVolumeChangeDescription}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding UnmuteWhileChangingVolume}"/>
-                <Label Content="{x:Static p:Strings.UnmuteWhileChangingVolumeLabel}" ToolTip="{x:Static p:Strings.UnmuteWhileChangingVolumeDescription}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsAppDisabledInFullScreenMode}"/>
-                <Label Content="{x:Static p:Strings.IsAppDisabledInFullScreenModeLabel}" ToolTip="{x:Static p:Strings.IsAppDisabledInFullScreenModeDescription}"/>
-                <materialDesign:PackIcon Kind="Warning" VerticalAlignment="Center" ToolTip="{x:Static p:Strings.Unstable}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding ShowPlaybackButtons}"/>
-                <Label Content="{x:Static p:Strings.ShowPlaybackButtonsLabel}" ToolTip="{x:Static p:Strings.ShowPlaybackButtonsDescription}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding VolumeControlWithMouseWheel}"/>
-                <Label Content="{x:Static p:Strings.VolumeControlWithMouseWheelLabel}" ToolTip="{x:Static p:Strings.VolumeControlWithMouseWheelDescription}"/>
-            </StackPanel>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="{x:Static p:Strings.MouseWheelVolumeChangeStepLabel}" ToolTip="{x:Static p:Strings.MouseWheelVolumeChangeStepDescription}"/>
-                <TextBox Grid.Row="0" Grid.Column="1" TextAlignment="Center" IsEnabled="{Binding VolumeControlWithMouseWheel}"
-                         Text="{Binding MouseWheelVolumeChangeStep, UpdateSourceTrigger=PropertyChanged}"
-                         PreviewTextInput="NumericTextBox_PreviewTextInput"/>
-                <Label Grid.Row="1" Grid.Column="0" Content="{x:Static p:Strings.WindowRightMarginLabel}" ToolTip="{x:Static p:Strings.WindowRightMarginDescription}"/>
-                <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Text="{Binding WindowRightMargin, UpdateSourceTrigger=PropertyChanged}"
-                         PreviewTextInput="NumericTextBox_PreviewTextInput"/>
-                <Label VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="0" Content="{x:Static p:Strings.MiddleMouseButtonActionLabel}" ToolTip="{x:Static p:Strings.MiddleMouseButtonActionDescription}"/>
-                <ComboBox Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" ItemsSource="{Binding MiddleMouseButtonActions}" Margin="0 0 5 0"
-                          SelectedItem="{Binding MiddleMouseButtonAction, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource MiddleMbActionConverter}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,5,5" HorizontalAlignment="Right">
+        <TabControl Grid.Row="1" Style="{StaticResource MaterialDesignTabControl}">
+            <TabItem Header="Основные" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label VerticalContentAlignment="Center" Grid.Column="0" 
+                                   Content="{x:Static p:Strings.Language}" ToolTip="{x:Static p:Strings.LanguageLabelDescription}"/>
+                            <ComboBox Margin="5 0 0 0" ItemsSource="{Binding AppLanguages}" Width="130" HorizontalAlignment="Left"
+                                      SelectedItem="{Binding AppLanguage, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding PlaySoundAfterVolumeChange}"
+                                      Content="{x:Static p:Strings.PlaySoundAfterVolumeChangeLabel}" ToolTip="{x:Static p:Strings.PlaySoundAfterVolumeChangeDescription}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding UnmuteWhileChangingVolume}"
+                                      Content="{x:Static p:Strings.UnmuteWhileChangingVolumeLabel}" ToolTip="{x:Static p:Strings.UnmuteWhileChangingVolumeDescription}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsAppDisabledInFullScreenMode}"
+                                      Content="{x:Static p:Strings.IsAppDisabledInFullScreenModeLabel}" ToolTip="{x:Static p:Strings.IsAppDisabledInFullScreenModeDescription}"/>
+                            <materialDesign:PackIcon Kind="Warning" VerticalAlignment="Center" ToolTip="{x:Static p:Strings.Unstable}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ShowPlaybackButtons}"
+                                      Content="{x:Static p:Strings.ShowPlaybackButtonsLabel}" ToolTip="{x:Static p:Strings.ShowPlaybackButtonsDescription}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding VolumeControlWithMouseWheel}"
+                                      Content="{x:Static p:Strings.VolumeControlWithMouseWheelLabel}" ToolTip="{x:Static p:Strings.VolumeControlWithMouseWheelDescription}"/>
+                        </StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="{x:Static p:Strings.MouseWheelVolumeChangeStepLabel}" ToolTip="{x:Static p:Strings.MouseWheelVolumeChangeStepDescription}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" TextAlignment="Center" IsEnabled="{Binding VolumeControlWithMouseWheel}"
+                                     Text="{Binding MouseWheelVolumeChangeStep, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericTextBox_PreviewTextInput"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="{x:Static p:Strings.WindowRightMarginLabel}" ToolTip="{x:Static p:Strings.WindowRightMarginDescription}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Text="{Binding WindowRightMargin, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericTextBox_PreviewTextInput"/>
+                            <Label VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="0" Content="{x:Static p:Strings.MiddleMouseButtonActionLabel}" ToolTip="{x:Static p:Strings.MiddleMouseButtonActionDescription}"/>
+                            <ComboBox Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" ItemsSource="{Binding MiddleMouseButtonActions}" Margin="0 0 5 0"
+                                      SelectedItem="{Binding MiddleMouseButtonAction, UpdateSourceTrigger=PropertyChanged}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource MiddleMbActionConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Микшер" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="3">
+                        <Button Style="{DynamicResource MaterialDesignIconForegroundButton}" Width="30" Height="30">
+                            <materialDesign:PackIcon Kind="Add" Width="24" Height="24"/>
+                        </Button>
+                        <Label Content="{x:Static p:Strings.MixerListLabel}" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                    <ListBox Grid.Row="1" Name="MixerAppsLb" ItemsSource="{Binding MixerApps}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{DynamicResource MaterialDesignIconForegroundButton}" Width="30" Height="30" Margin="3 0 0 0">
+                                        <materialDesign:PackIcon Kind="Delete" Width="20" Height="20"/>
+                                    </Button>
+                                    <Label Content="{Binding}" VerticalContentAlignment="Center" Margin="8 0 0 0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!--<StackPanel Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,5,5" HorizontalAlignment="Right">
             <Button Content="{x:Static p:Strings.RestoreDefaults}" Click="RestoreDefaultsButton_Click" Height="25" Margin="0 3 0 0"
                     Style="{DynamicResource MaterialDesignFlatButton}"/>
             <Button Content="{x:Static p:Strings.CloseTheApp}" Click="CloseAppButton_Click" Height="25"
                     Style="{DynamicResource MaterialDesignFlatButton}"/>
-        </StackPanel>
-        <Label Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="v1.2 by MRGRD56" Margin="2 0 0 0"
+        </StackPanel>-->
+        <Label Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="v1.2.0.1 by MRGRD56" Margin="2 0 0 0"
                Foreground="#616161" Cursor="Hand" MouseLeftButtonDown="Mrgrd56Label_MouseLeftButtonDown"/>
     </Grid>
 </Window>
