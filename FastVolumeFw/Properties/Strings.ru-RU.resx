@@ -126,6 +126,15 @@
   <data name="Exit" xml:space="preserve">
     <value>Выход</value>
   </data>
+  <data name="ExitMessage" xml:space="preserve">
+    <value>Выйти из программы?</value>
+  </data>
+  <data name="ExitTitle" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Experimental" xml:space="preserve">
+    <value>Экспериментальные</value>
+  </data>
   <data name="IsAppDisabledInFullScreenModeDescription" xml:space="preserve">
     <value>Если параметр включён и вы в полноэкранном режиме, окно управления звуком отображаться не будет.</value>
   </data>
@@ -143,6 +152,9 @@
   </data>
   <data name="LanguageLabelDescription" xml:space="preserve">
     <value>Язык приложения. Требует перезапуска.</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Основные</value>
   </data>
   <data name="MiddleMouseButtonActionDescription" xml:space="preserve">
     <value>Это действие происходит при нажатии средней кнопки мыши.</value>
@@ -206,6 +218,10 @@
   </data>
   <data name="Unstable" xml:space="preserve">
     <value>Нестабильно</value>
+  </data>
+  <data name="UnstableDescription" xml:space="preserve">
+    <value>Следующие настройки могут привести к различным ошибкам.
+Используйте их на свой страх и риск.</value>
   </data>
   <data name="VolumeControlWithMouseWheelDescription" xml:space="preserve">
     <value>Когда вы прокручиваете колесо мыши в пределах окна контроля громкости, звук изменяется.</value>

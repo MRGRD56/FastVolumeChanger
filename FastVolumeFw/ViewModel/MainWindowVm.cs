@@ -48,8 +48,8 @@ namespace FastVolumeFw.ViewModel
             }
         }
 
-        public ObservableCollection<AppVolume> MixerApps { get; set; } = 
-            AppVolume.FromNames(Default.MixerApps);
+        //public ObservableCollection<AppVolume> MixerApps { get; set; } = 
+        //    AppVolume.FromNames(Default.MixerApps);
 
         public async void SetSystemVolumeAsync(int vol)
         {

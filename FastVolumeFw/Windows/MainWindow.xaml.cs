@@ -86,7 +86,7 @@ namespace FastVolumeFw.Windows
             }
 
             // width = 60 (if count of MixerApps is 0)
-            Width = 60 + Properties.Settings.Default.MixerApps.Count * 70;
+            //Width = 60 + Properties.Settings.Default.MixerApps.Count * 70;
         }
 
         private async void TraceCursorAndVolume()

@@ -189,18 +189,18 @@ namespace FastVolumeFw.ViewModel
             }
         }
 
-        public List<string> MixerApps
-        {
-            get => _mixerApps;
-            set
-            {
-                if (Equals(value, _mixerApps)) return;
-                _mixerApps = value;
-                Default.MixerApps = value;
-                Default.Save();
-                OnPropertyChanged();
-            }
-        }
+        //public List<string> MixerApps
+        //{
+        //    get => _mixerApps;
+        //    set
+        //    {
+        //        if (Equals(value, _mixerApps)) return;
+        //        _mixerApps = value;
+        //        Default.MixerApps = value;
+        //        Default.Save();
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         public SettingsWindowVm()
         {
@@ -214,10 +214,10 @@ namespace FastVolumeFw.ViewModel
             MiddleMouseButtonAction = (MiddleMouseButtonAction) Default.MiddleMouseButtonAction;
             AppLanguage = AppLanguages.FirstOrDefault(x => Default.AppLanguage == x.Code) ??
                           new AppLanguage("en-US", "English");
-            MixerApps = Default.MixerApps;
+            //MixerApps = Default.MixerApps;
 
-            //TODO remove
-            MixerApps = new List<string> { "chrome.exe", "msedge.exe" };
+            //TO/DO remove
+            //MixerApps = new List<string> { "chrome.exe", "msedge.exe" };
         }
 
         public void RestoreDefaults()
@@ -231,7 +231,7 @@ namespace FastVolumeFw.ViewModel
             ShowPlaybackButtons = true;
             MiddleMouseButtonAction = MiddleMouseButtonAction.None;
             //AppLanguage - skip
-            MixerApps = new List<string>();
+            //MixerApps = new List<string>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
