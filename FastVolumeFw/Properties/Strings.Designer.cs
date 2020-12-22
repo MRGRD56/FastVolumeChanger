@@ -88,6 +88,33 @@ namespace FastVolumeFw.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Exit the program?.
+        /// </summary>
+        public static string ExitMessage {
+            get {
+                return ResourceManager.GetString("ExitMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Exit.
+        /// </summary>
+        public static string ExitTitle {
+            get {
+                return ResourceManager.GetString("ExitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Experimental.
+        /// </summary>
+        public static string Experimental {
+            get {
+                return ResourceManager.GetString("Experimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на If the option is enabled and you are in full screen mode, the volume control will not be shown..
         /// </summary>
         public static string IsAppDisabledInFullScreenModeDescription {
@@ -138,6 +165,15 @@ namespace FastVolumeFw.Properties {
         public static string LanguageLabelDescription {
             get {
                 return ResourceManager.GetString("LanguageLabelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Main.
+        /// </summary>
+        public static string Main {
+            get {
+                return ResourceManager.GetString("Main", resourceCulture);
             }
         }
         
@@ -327,6 +363,16 @@ namespace FastVolumeFw.Properties {
         public static string Unstable {
             get {
                 return ResourceManager.GetString("Unstable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The following options can lead to various errors.
+        ///Use them at your own risk..
+        /// </summary>
+        public static string UnstableDescription {
+            get {
+                return ResourceManager.GetString("UnstableDescription", resourceCulture);
             }
         }
         

@@ -126,6 +126,15 @@
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="ExitMessage" xml:space="preserve">
+    <value>Exit the program?</value>
+  </data>
+  <data name="ExitTitle" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Experimental" xml:space="preserve">
+    <value>Experimental</value>
+  </data>
   <data name="IsAppDisabledInFullScreenModeDescription" xml:space="preserve">
     <value>If the option is enabled and you are in full screen mode, the volume control will not be shown.</value>
   </data>
@@ -143,6 +152,9 @@
   </data>
   <data name="LanguageLabelDescription" xml:space="preserve">
     <value>App language. Requires app restart.</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Main</value>
   </data>
   <data name="MiddleMouseButtonActionDescription" xml:space="preserve">
     <value>The action that occurs when the middle mouse button is pressed.</value>
@@ -206,6 +218,10 @@
   </data>
   <data name="Unstable" xml:space="preserve">
     <value>Unstable</value>
+  </data>
+  <data name="UnstableDescription" xml:space="preserve">
+    <value>The following options can lead to various errors.
+Use them at your own risk.</value>
   </data>
   <data name="VolumeControlWithMouseWheelDescription" xml:space="preserve">
     <value>When you move the mouse wheel within the application window, the volume changes.</value>
